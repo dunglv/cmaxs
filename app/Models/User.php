@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Scopes\SoftDeletes\SoftDeleteCustoms;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeleteCustoms;
 
     /**
      * The attributes that are mass assignable.
