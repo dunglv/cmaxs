@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 //require(app_path() . '/routes/admin.php');
@@ -20,3 +20,7 @@ foreach ( File::allFiles(__DIR__.'/segments') as $partial )
 {
     require $partial->getPathname();
 }
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -21,6 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userRepo->getAll();
+        dd($users);
     }
 
     /**
