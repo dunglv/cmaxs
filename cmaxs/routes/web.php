@@ -14,6 +14,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+// Require if want to split file route to sub multiple file
 //require(app_path() . '/routes/admin.php');
 
 foreach ( File::allFiles(__DIR__.'/segments') as $partial )
