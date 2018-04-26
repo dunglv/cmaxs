@@ -1,47 +1,54 @@
 <?php
 
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 namespace App\Repositories;
 
-abstract class EloquentRepository implements RepositoryInterface
-{
-	/**
+use App\Repositories\RepositoryInterface;
+
+abstract class EloquentRepository implements RepositoryInterface{
+     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $model;
- 
+    protected $_model;
+
     /**
      * EloquentRepository constructor.
      */
     public function __construct()
     {
-        $this->model = $this->setModel();
+        $this->setModel();
     }
- 
+
     /**
      * get model
      * @return string
      */
     abstract public function getModel();
- 
+
     /**
      * Set model
      */
     public function setModel()
     {
-        $this->model = app()->make(
+        $this->_model = app()->make(
             $this->getModel()
         );
+        
     }
- 
+
     /**
      * Get All
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAll()
     {
-        return $this->model->all();
+        return $this->_model->all();
     }
- 
+
     /**
      * Get one
      * @param $id
@@ -49,10 +56,10 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function find($id)
     {
-        $result = $this->model->find($id);
+        $result = $this->_model->find($id);
         return $result;
     }
- 
+
     /**
      * Create
      * @param array $attributes
@@ -60,9 +67,9 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return $this->model->create($attributes);
+        return $this->_model->create($attributes);
     }
- 
+
     /**
      * Update
      * @param $id
@@ -78,7 +85,7 @@ abstract class EloquentRepository implements RepositoryInterface
         }
         return false;
     }
- 
+
     /**
      * Delete
      * 
@@ -92,7 +99,31 @@ abstract class EloquentRepository implements RepositoryInterface
             $result->delete();
             return true;
         }
- 
+
+        return false;
+    }
+    
+    /**
+     * Lock
+     * 
+     * @param $id
+     * @return bool
+     */
+    public function lock($id)
+    {
+        $result = $this->find($id);
+        if($result) {
+            if($result->active == 1)
+            {
+                $result->active = 0;
+            }else{
+                $result->active = 1;
+            }
+
+            $result->save();
+            return true;
+        }
+
         return false;
     }
 }

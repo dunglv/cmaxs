@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Database\Eloquent;
+namespace App\Scopes\SoftDeletes;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -67,9 +67,11 @@ trait SoftDeleteCustoms
 
         $time = $this->freshTimestamp();
 
-        $columns = [$this->getDeletedAtColumn() => $this->fromDateTime($time)];
+//        $columns = [$this->getDeletedAtColumn() => $this->fromDateTime($time)];
+        $columns = [$this->getDeletedAtColumn() => 1];
 
-        $this->{$this->getDeletedAtColumn()} = $time;
+//        $this->{$this->getDeletedAtColumn()} = $time;
+        $this->{$this->getDeletedAtColumn()} = 1;
 
         if ($this->timestamps && ! is_null($this->getUpdatedAtColumn())) {
             $this->{$this->getUpdatedAtColumn()} = $time;
@@ -94,7 +96,8 @@ trait SoftDeleteCustoms
             return false;
         }
 
-        $this->{$this->getDeletedAtColumn()} = null;
+//        $this->{$this->getDeletedAtColumn()} = null;
+        $this->{$this->getDeletedAtColumn()} = 0;
 
         // Once we have saved the model, we will fire the "restored" event so this
         // developer will do anything they need to after a restore operation is
@@ -115,7 +118,8 @@ trait SoftDeleteCustoms
      */
     public function trashed()
     {
-        return ! is_null($this->{$this->getDeletedAtColumn()});
+//        return ! is_null($this->{$this->getDeletedAtColumn()});
+        return $this->{$this->getDeletedAtColumn()} == 1;
     }
 
     /**

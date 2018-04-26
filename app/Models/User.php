@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +9,9 @@ use App\Scopes\SoftDeletes\SoftDeleteCustoms;
 class User extends Authenticatable
 {
     use Notifiable, SoftDeleteCustoms;
-
+    
+    const DELETED_AT = 'flag_delete';
+    
     /**
      * The attributes that are mass assignable.
      *

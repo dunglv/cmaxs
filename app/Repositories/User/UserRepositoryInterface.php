@@ -14,5 +14,5 @@ interface UserRepositoryInterface
      * Get post only published
      * @return mixed
      */
-    public function findOnlyPublished();
+    public function findOnlyPublished($id);
 }
