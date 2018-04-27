@@ -11,3 +11,9 @@
 /cmaxs/yarn-error.log
 /cmaxs/.env
 /cmaxs/nbproject/private/
+/cmaxs/data
+/cmaxs/storage/app
+/cmaxs/storage/framework
+/cmaxs/storage/logs
+/cmaxs/public/css
+/cmaxs/public/js

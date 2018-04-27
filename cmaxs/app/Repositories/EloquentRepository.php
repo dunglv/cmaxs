@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,9 +8,11 @@
 namespace App\Repositories;
 
 use App\Repositories\RepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class EloquentRepository implements RepositoryInterface{
-     /**
+
+    /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $_model;
@@ -34,10 +36,15 @@ abstract class EloquentRepository implements RepositoryInterface{
      */
     public function setModel()
     {
-        $this->_model = app()->make(
+        $model = app()->make(
             $this->getModel()
         );
-        
+
+        if (!$model instanceof Model) {
+            throw new \Exception('Model must be instanceof Illuminate\Database\Eloquent\Model');
+        }
+
+        $this->_model = $model;
     }
 
     /**
@@ -88,7 +95,7 @@ abstract class EloquentRepository implements RepositoryInterface{
 
     /**
      * Delete
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -102,10 +109,10 @@ abstract class EloquentRepository implements RepositoryInterface{
 
         return false;
     }
-    
+
     /**
      * Lock
-     * 
+     *
      * @param $id
      * @return bool
      */
