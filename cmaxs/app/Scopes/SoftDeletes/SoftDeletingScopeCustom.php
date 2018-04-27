@@ -5,6 +5,7 @@ namespace App\Scopes\SoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Common\Constant;
 
 class SoftDeletingScopeCustom extends SoftDeletingScope
 {
@@ -25,7 +26,7 @@ class SoftDeletingScopeCustom extends SoftDeletingScope
     public function apply(Builder $builder, Model $model)
     {
 //        $builder->whereNull($model->getQualifiedDeletedAtColumn());
-        $builder->where($model->getQualifiedDeletedAtColumn(), 0);
+        $builder->where($model->getQualifiedDeletedAtColumn(), Constant::DELETE_FLAG_FALSE);
     }
 
     /**
@@ -45,7 +46,7 @@ class SoftDeletingScopeCustom extends SoftDeletingScope
 
             return $builder->update([
 //                $column => $builder->getModel()->freshTimestampString(),
-                $column => 1,
+                $column => Constant::DELETE_FLAG_TRUE,
             ]);
         });
     }
@@ -113,7 +114,7 @@ class SoftDeletingScopeCustom extends SoftDeletingScope
 //                $model->getQualifiedDeletedAtColumn()
 //            );
             $builder->withoutGlobalScope($this)->where(
-                $model->getQualifiedDeletedAtColumn(), 0
+                $model->getQualifiedDeletedAtColumn(), Constant::DELETE_FLAG_FALSE
             );
 
             return $builder;
@@ -136,7 +137,7 @@ class SoftDeletingScopeCustom extends SoftDeletingScope
 //            );
             
             $builder->withoutGlobalScope($this)->where(
-                $model->getQualifiedDeletedAtColumn(), 1
+                $model->getQualifiedDeletedAtColumn(), Constant::DELETE_FLAG_TRUE
             );
 
             return $builder;

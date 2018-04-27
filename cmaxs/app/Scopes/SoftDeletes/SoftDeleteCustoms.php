@@ -3,6 +3,7 @@
 namespace App\Scopes\SoftDeletes;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Common\Constant;
 
 trait SoftDeleteCustoms
 {
@@ -68,10 +69,10 @@ trait SoftDeleteCustoms
         $time = $this->freshTimestamp();
 
 //        $columns = [$this->getDeletedAtColumn() => $this->fromDateTime($time)];
-        $columns = [$this->getDeletedAtColumn() => 1];
+        $columns = [$this->getDeletedAtColumn() => Constant::DELETE_FLAG_TRUE];
 
 //        $this->{$this->getDeletedAtColumn()} = $time;
-        $this->{$this->getDeletedAtColumn()} = 1;
+        $this->{$this->getDeletedAtColumn()} = Constant::DELETE_FLAG_TRUE;
 
         if ($this->timestamps && ! is_null($this->getUpdatedAtColumn())) {
             $this->{$this->getUpdatedAtColumn()} = $time;
@@ -97,7 +98,7 @@ trait SoftDeleteCustoms
         }
 
 //        $this->{$this->getDeletedAtColumn()} = null;
-        $this->{$this->getDeletedAtColumn()} = 0;
+        $this->{$this->getDeletedAtColumn()} = Constant::DELETE_FLAG_FALSE;
 
         // Once we have saved the model, we will fire the "restored" event so this
         // developer will do anything they need to after a restore operation is
@@ -119,7 +120,7 @@ trait SoftDeleteCustoms
     public function trashed()
     {
 //        return ! is_null($this->{$this->getDeletedAtColumn()});
-        return $this->{$this->getDeletedAtColumn()} == 1;
+        return $this->{$this->getDeletedAtColumn()} == Constant::DELETE_FLAG_TRUE;
     }
 
     /**
