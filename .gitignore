@@ -1,0 +1,13 @@
+/cmaxs/node_modules
+/cmaxs/public/hot
+/cmaxs/public/storage
+/cmaxs/storage/*.key
+/cmaxs/vendor
+/cmaxs/.idea
+/cmaxs/.vagrant
+/cmaxs/Homestead.json
+/cmaxs/Homestead.yaml
+/cmaxs/npm-debug.log
+/cmaxs/yarn-error.log
+/cmaxs/.env
+/cmaxs/nbproject

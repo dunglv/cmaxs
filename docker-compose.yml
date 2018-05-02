@@ -1,0 +1,22 @@
+version: '2'
+services:
+  web:
+    build: .
+    container_name: cmaxs-server
+    volumes:
+      - ./cmaxs:/var/www/html
+    ports:
+      - "90:80"
+    extra_hosts:
+      - "cmaxs.local:127.0.0.1"
+    links:
+      - database
+  database:
+    image: mysql:5.7
+    container_name: cmaxs-database
+    volumes:
+      - ./cmaxs/data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rikkei
+    ports:
+      - 3406:3306
