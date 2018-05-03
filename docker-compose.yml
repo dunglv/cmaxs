@@ -1,22 +1,21 @@
-version: '2'
+version: '3'
 services:
   web:
-    build: .
+    build:
+        context: ./
+        dockerfile: web.dockerfile
     container_name: cmaxs-server
     volumes:
-      - ./cmaxs:/var/www/html
+      - ./SourceCode:/var/www/html
     ports:
-      - "90:80"
-    extra_hosts:
-      - "cmaxs.local:127.0.0.1"
+      - "8080:80"
     links:
-      - database
-  database:
+      - db
+  db:
     image: mysql:5.7
-    container_name: cmaxs-database
-    volumes:
-      - ./cmaxs/data/mysql:/var/lib/mysql
+    container_name: cmaxs-db
     environment:
-      - MYSQL_ROOT_PASSWORD=rikkei
+      - "MYSQL_ROOT_PASSWORD=rikkei"
+      - "MYSQL_DATABASE=cmaxs"
     ports:
-      - 3406:3306
+      - "3406:3306"
