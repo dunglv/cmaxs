@@ -6,7 +6,7 @@ services:
         dockerfile: web.dockerfile
     container_name: cmaxs-server
     volumes:
-      - ./SourceCode:/var/www/html
+      - ./cmaxs:/var/www/html
     ports:
       - "8080:80"
     links:
