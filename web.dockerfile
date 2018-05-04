@@ -22,6 +22,7 @@ RUN apt-get update
 
 # Install web server nginx and supervisor for start service
 RUN apt-get -y --force-yes install nginx supervisor
+RUN apt-get -y install supervisor
 
 RUN apt-get update
 
