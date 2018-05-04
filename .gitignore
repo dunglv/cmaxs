@@ -1,6 +1,4 @@
 /cmaxs/node_modules
-/cmaxs/public/hot
-/cmaxs/public/storage
 /cmaxs/storage/*.key
 /cmaxs/vendor
 /cmaxs/.idea
@@ -11,3 +9,8 @@
 /cmaxs/yarn-error.log
 /cmaxs/.env
 /cmaxs/nbproject
+/cmaxs/public/hot
+/cmaxs/public/storage
+/cmaxs/public/js
+/cmaxs/public/css
+/cmaxs/public/fonts
