@@ -21,8 +21,7 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN apt-get update
 
 # Install web server nginx and supervisor for start service
-RUN apt-get -y --force-yes install nginx supervisor
-RUN apt-get -y install supervisor
+RUN apt-get -y install nginx supervisor
 
 RUN apt-get update
 
@@ -43,6 +42,7 @@ ADD conf.d/startup.sh /usr/bin/startup.sh
 RUN chmod +x /usr/bin/startup.sh
 
 COPY conf.d/default.conf /etc/nginx/sites-available/default
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Default command
